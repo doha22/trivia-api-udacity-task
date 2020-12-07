@@ -67,17 +67,12 @@ One note before you delve into your tasks: for each endpoint you are expected to
 9. Create error handlers for all expected errors including 400, 404, 422 and 500. 
 
 
-## Endpoints
- - GET '/categories'
-  - GET ...
-  - POST ...
-  - DELETE ...
-  
-  
+## Endpoints 
 
 #####  GET '/categories'
 ```
-   url : http://127.0.0.1:5000/categories
+   Sample
+   curl http://127.0.0.1:5000/categories
 
     - Fetches a dictionary of categories in which the keys are the ids and the value is the corresponding string of the category
     - Request Arguments: None
@@ -95,18 +90,135 @@ One note before you delve into your tasks: for each endpoint you are expected to
       }
 
 ```
+#####  POST 'questions/search'
+```
+   Sample
+   curl http://127.0.0.1:5000/questions/search -X POST -H "Content-Type: application/json" -d '{"searchTerm": "what"}'
+
+    - will search of question by passing search term .
+    - input :
+      {
+ 	"searchTerm":"what"
+ 	
+        }
+    - output will be :
+    {
+    "questions": [
+        {
+            "answer": "search on google",
+            "category": "1",
+            "difficulty": 3,
+            "id": 3,
+            "question": "what means by inverse engineering"
+        },
+        {
+            "answer": "don't have any idea",
+            "category": "6",
+            "difficulty": 2,
+            "id": 4,
+            "question": "what is the result of last match between ahly and zamalek"
+        },
+        {
+            "answer": "see course of udicity ",
+            "category": "4",
+            "difficulty": 2,
+            "id": 8,
+            "question": "what do you now about GIT?"
+        }
+    ],
+    "success": true,
+    "total_questions": 12
+}     
+    
+
+```
+
+
+#####  POST '/new_category'
+```
+   Sample
+   curl http://127.0.0.1:5000/new_category -X POST -H "Content-Type: application/json" -d '{"type": "music"}'
+
+    - insert new category  
+    - implement in backend only 
+     
+    - output be :
+    {
+    "message": "inserted ",
+    "success": true
+        }      
+    
+
+```
 
 #####  GET /questions
-    url : http://127.0.0.1:5000/questions
+    Sample
+    curl http://127.0.0.1:5000/questions
       - return all questions
       - return only 10 question per page
+      - output will be :
+      {
+    "categories": {
+        "1": "Science",
+        "2": "Art",
+        "3": "Geography",
+        "4": "History",
+        "5": "Entertainment",
+        "6": "Sports"
+    },
+    "questions": [
+        {
+            "answer": "see course of udicity ",
+            "category": "1",
+            "difficulty": 1,
+            "id": 1,
+            "question": "how to post new article using js"
+        },
+        {
+            "answer": "see on printrest",
+            "category": "1",
+            "difficulty": 2,
+            "id": 2,
+            "question": "how to draw cat"
+        },
+        {
+            "answer": "search on google",
+            "category": "1",
+            "difficulty": 3,
+            "id": 3,
+            "question": "what means by inverse engineering"
+        },
+        {
+            "answer": "don't have any idea",
+            "category": "6",
+            "difficulty": 2,
+            "id": 4,
+            "question": "what is the result of last match between ahly and zamalek"
+        },
+        {
+            "answer": "you can see on printrest",
+            "category": "2",
+            "difficulty": 2,
+            "id": 5,
+            "question": "how to draw mouse?"
+        },
+        {
+            "answer": "see many ideas on printrest",
+            "category": "5",
+            "difficulty": 2,
+            "id": 6,
+            "question": "how can make surprise box"
+        }
+      }
+
 
 
 
 
 ##### DELETE /question/Question_id
 
-    url : http://127.0.0.1:5000/questions/question_id
+    Sample
+    curl http://127.0.0.1:5000/questions/1 -X DELETE
       - delete question by question id 
       - return question id 
       
@@ -116,8 +228,9 @@ One note before you delve into your tasks: for each endpoint you are expected to
      }
 
 ##### POST /questions
-
-    url : http://127.0.0.1:5000/questions
+     
+     Sample
+     curl http://127.0.0.1:5000/questions -X POST -H "Content-Type: application/json" -d'{ "question": "how to learn js", "answer": "you can find tutorial on w3schools", "difficulty": 1, "category": "1" } '
       - submit form of question by fill (question , answer , diffculty , category)
       - return question id 
       
@@ -132,40 +245,48 @@ One note before you delve into your tasks: for each endpoint you are expected to
       "success": true
     }
     
-  ##### POST /questions
-
-    url : http://127.0.0.1:5000/questions
-      - submit form of question by fill (question , answer , diffculty , category)
-      - return question id 
-      
-      {
-      "created": {
-        "answer": "you can find tutorial on w3schools", 
-        "category": 1, 
-        "difficulty": 1, 
-        "id": 2, 
-        "question": "how to learn js"
-      }, 
-      "success": true
-    }
+ 
     
    ##### GET /categories/<int:id>/questions
 
-    url : http://127.0.0.1:5000/questions
-      - get question by category_id
-      
-      
-      {
-        'success': True,
-        'questions': 'how to study art' ,
-        'total_questions': 2,
-        'current_category': 'Art'
-    } 
+   
+    Sample
+    curl -X GET http://127.0.0.1:5000/questions
+      - return questions related to category_id
+      - output:
+     {
+    "current_category": "Science",
+    "questions": [
+        {
+            "answer": "see course of udicity ",
+            "category": "1",
+            "difficulty": 1,
+            "id": 1,
+            "question": "how to post new article using js"
+        },
+        {
+            "answer": "see on printrest",
+            "category": "1",
+            "difficulty": 2,
+            "id": 2,
+            "question": "how to draw cat"
+        },
+        {
+            "answer": "search on google",
+            "category": "1",
+            "difficulty": 3,
+            "id": 3,
+            "question": "what means by inverse engineering"
+        }
+    ],
+    "success": true,
+    "total_questions": 3
+}
     
   ##### POST /quizzes
 
-    url : http://127.0.0.1:5000/quizzes
-      - it's like a game
+     Sample
+      curl -X POST http://127.0.0.1:5000/quizzes -H "Content-Type: application/json" -d '{"quiz_category":{"type":"Science","id":1},"previous_questions":[20]}'
       - return one random question and success value
       
       
@@ -186,8 +307,11 @@ One note before you delve into your tasks: for each endpoint you are expected to
 
 ## Testing
 To run the tests, run
-
-    dropdb trivia_test
-    createdb trivia_test
-    psql trivia_test < trivia.psql
+    
+    create db by using terminal :
+        dropdb trivia_test
+        createdb trivia_test
+        psql trivia_test < trivia.psql
+    or create db from pgadmin4  directly named trivia_test
+    then from pgadmin4 restore trivia.psql 
     python test_flaskr.py
